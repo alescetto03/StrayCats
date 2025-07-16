@@ -1,0 +1,90 @@
+<div class="bg-zinc-700/50 mx-auto rounded-xl w-full max-w-100">
+    <div class="auth-header py-4 px-5">
+        <h3 class="text-white text-3xl">Inserisci un randagio</h3>
+    </div>
+    <div class="auth-body p-5 border-t border-white/30">
+    <form [formGroup]="catForm" (ngSubmit)="handleSubmit()">
+        <div class="text-center mb-4">
+            <label class="block text-white mb-2 text-left">Titolo</label>
+            <div class="w-full mb-4">
+                <input
+                formControlName="title"
+                type="text"
+                class="w-full px-4 py-2 text-gray-700 focus:outline-none bg-white mb-1 rounded-md mb-1"
+                />
+                @if(submitted && catForm.controls.title.errors){
+                    @if(catForm.controls.title.errors['required']){
+                        <div>
+                            <p class="text-left text-sm text-red-700">Inserisci uno username.</p>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="mb-4">
+                <label class="block text-white mb-2 text-left">Immagine</label>
+                <div class="relative w-full">
+                    <input
+                    type="file"
+                    (change)="onFileSelected($event)"
+                    accept="image/*"
+                    class="block w-full text-sm text-gray-300 
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-md file:border-0
+                            file:text-sm
+                            file:bg-white file:text-stone-900
+                            hover:file:bg-stone-900
+                            hover:file:text-white
+                            file:transition-colors file:duration-300 file:ease-in-out mb-1"
+                    />
+                </div>
+                @if(submitted && this.invalidData){
+                    @if (!selectedFile) {
+                        <div>
+                            <p class="text-left text-sm text-red-700">Inserisci un'immagine</p>
+                        </div>
+                    } @else if (this.isExtensionInvalid) {
+                        <div>
+                            <p class="text-left text-sm text-red-700">Il formato dell'immagine deve essere jpeg, jpg oppure webp</p>
+                        </div>
+                    } @else if (this.selectedFile.size > 5 * 1024 * 1024) {
+                        <div>
+                            <p class="text-left text-sm text-red-700">L'immagine deve essere di massimo 5 MB</p>
+                        </div>
+                    }
+                } @else {
+                    <div>
+                        <p class="text-yellow-500 text-sm text-left">Inserisci un'immagine con formato jpg, jpeg o webp con massimo 5 MB</p>
+                    </div>
+                }
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-white mb-2 text-left">Descrizione (Markdown)</label>
+                <textarea
+                formControlName="description"
+                [(ngModel)]="content"
+                rows="6"
+                placeholder="Scrivi qui in markdown..."
+                class="w-full px-4 py-2 text-gray-700 focus:outline-none bg-white rounded-md"
+                ></textarea>
+            </div>
+
+            <div class="mb-4 text-left">
+                <label class="block text-white mb-2">Anteprima:</label>
+                <div class="p-4 bg-white rounded-md shadow-inner">
+                <markdown [data]="content"></markdown>
+                </div>
+            </div>
+
+            <app-map
+                [insertMode]="true"
+                (coordinatesSelected)="onMapClick($event)">
+            </app-map>
+
+        </div>
+        <div class="text-right">
+            <button type="submit" class="py-2 px-4 cursor-pointer transition-colors rounded-md duration-300 ease-in-out bg-white text-stone-900 hover:bg-stone-900 hover:text-white">Salva</button>
+        </div>
+    </form>
+  </div>
+</div>

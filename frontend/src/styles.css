@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import 'ngx-toastr/toastr';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.toast-success {
+  background-color: oklch(0.704 0.14 182.503);;
+}
+.toast-error {
+  background-color: #BD362F;
+}
+.toast-info {
+  background-color: #2F96B4;
+}
+.toast-warning {
+  background-color: #F89406;
+}

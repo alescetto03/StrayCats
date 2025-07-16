@@ -1,0 +1,70 @@
+<div class="bg-zinc-700/50 mx-auto rounded-xl w-full sm:min-w-100">
+    <div class="auth-header py-4 px-5">
+        <h3 class="text-white text-3xl">Accedi</h3>
+    </div>
+    <div class="auth-body p-5 border-y border-white/30">
+        <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+            <div class="text-center">
+                <div class="mb-4">
+                    <div class="flex w-full overflow-hidden rounded-md shadow-md mb-1">
+                        <div class="flex items-center justify-center bg-stone-900 px-3">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"/>
+                                <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z"/>
+                            </svg>
+                        </div>
+                        <input
+                            formControlName="user"
+                            type="text"
+                            placeholder="username"
+                            class="w-full px-4 py-2 text-gray-700 focus:outline-none bg-white"
+                        />
+                        
+                    </div>
+                    @if(submitted && loginForm.controls.user.errors){
+                        @if(loginForm.controls.user.errors['required']){
+                            <div>
+                                <p class="text-left text-sm text-red-700">Inserisci uno username.</p>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="mb-4">
+                    <div class="flex w-full overflow-hidden rounded-md shadow-md mb-1">
+                        <div class="flex items-center justify-center bg-stone-900 px-3">
+                            <svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 16 16">
+                                <path class="text-white" fill-rule="evenodd" clip-rule="evenodd" d="M16 5.5C16 8.53757 13.5376 11 10.5 11H7V13H5V15L4 16H0V12L5.16351 6.83649C5.0567 6.40863 5 5.96094 5 5.5C5 2.46243 7.46243 0 10.5 0C13.5376 0 16 2.46243 16 5.5ZM13 4C13 4.55228 12.5523 5 12 5C11.4477 5 11 4.55228 11 4C11 3.44772 11.4477 3 12 3C12.5523 3 13 3.44772 13 4Z"/>
+                            </svg>
+                        </div>
+
+                        <input
+                            formControlName="pass"
+                            type="password"
+                            placeholder="password"
+                            class="w-full px-4 py-2 text-gray-700 focus:outline-none bg-white"
+                        />
+                    </div>
+                    @if(submitted && loginForm.controls.pass.errors){
+                        @if(loginForm.controls.pass.errors['required']){
+                            <p class="text-left text-sm text-red-700">Inserisci una password</p>
+                        }
+                        @if(loginForm.controls.pass.errors['minlength']){
+                            <p class="text-left text-sm text-red-700">La password deve contenere almeno 4 caratteri</p>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="py-2 px-4 cursor-pointer transition-colors rounded-md duration-300 ease-in-out bg-white text-stone-900 hover:bg-stone-900 hover:text-white">Accedi</button>
+            </div>
+        </form>
+    </div>
+    <div class="auth-footer px-5 py-3">
+        <div class="flex justify-center text-white">
+            Non hai un account?
+            <a href="signup" class="relative ml-1 transition-colors duration-300 cursor-pointer text-white/50 hover:text-white after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0 after:bg-white/50 hover:after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+                Registrati
+            </a>        
+        </div>
+    </div>
+</div>

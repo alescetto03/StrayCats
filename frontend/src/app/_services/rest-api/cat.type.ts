@@ -1,11 +1,11 @@
 export interface Cat {
-    catId?: number;
+    catId?: bigint;
     title: string; 
     description: string;
     latitude: number;
     longitude: number;
-    author: string;
-    //photo
+    authorUsername?: string;
+    image?: File;
     createdAt?: Date; 
     updatedAt?: Date;
 }

@@ -1,9 +1,9 @@
-<div class="bg-zinc-700/50 mx-auto rounded-xl w-full max-w-100">
+<div class="min-[400px]:min-w-[400px] bg-zinc-700/50 mx-auto rounded-xl w-full max-w-100">
     <div class="auth-header py-4 px-5">
-        <h3 class="text-white text-3xl">Inserisci un randagio</h3>
+        <h3 class="text-white sm:text-3xl text-xl">Inserisci un randagio</h3>
     </div>
     <div class="auth-body p-5 border-t border-white/30">
-    <form [formGroup]="catForm" (ngSubmit)="handleSubmit()">
+    <form [formGroup]="catForm" (ngSubmit)="handleSubmit()" enctype="multipart/form-data">
         <div class="text-center mb-4">
             <label class="block text-white mb-2 text-left">Titolo</label>
             <div class="w-full mb-4">
@@ -15,7 +15,7 @@
                 @if(submitted && catForm.controls.title.errors){
                     @if(catForm.controls.title.errors['required']){
                         <div>
-                            <p class="text-left text-sm text-red-700">Inserisci uno username.</p>
+                            <p class="text-left text-sm text-red-700">Inserisci un titolo.</p>
                         </div>
                     }
                 }
@@ -40,7 +40,7 @@
                 @if(submitted && this.invalidData){
                     @if (!selectedFile) {
                         <div>
-                            <p class="text-left text-sm text-red-700">Inserisci un'immagine</p>
+                            <p class="text-left text-sm text-red-700">Inserisci un'immagine.</p>
                         </div>
                     } @else if (this.isExtensionInvalid) {
                         <div>
@@ -67,6 +67,13 @@
                 placeholder="Scrivi qui in markdown..."
                 class="w-full px-4 py-2 text-gray-700 focus:outline-none bg-white rounded-md"
                 ></textarea>
+                @if(submitted && catForm.controls.description.errors){
+                    @if(catForm.controls.description.errors['required']){
+                        <div>
+                            <p class="text-left text-sm text-red-700">Inserisci una descrizione.</p>
+                        </div>
+                    }
+                }
             </div>
 
             <div class="mb-4 text-left">
@@ -78,8 +85,17 @@
 
             <app-map
                 [insertMode]="true"
+                [mapId]="'catFormMap'"
+                [style]="'w-full h-[360px]'"
                 (coordinatesSelected)="onMapClick($event)">
             </app-map>
+            @if(submitted && (!this.latitude || !this.longitude)){
+                @if(submitted){
+                    <div class="mt-2">
+                        <p class="text-left text-sm text-red-700">Clicca sulla mappa per inserire la posizione del tuo randagio.</p>
+                    </div>
+                }
+            }
 
         </div>
         <div class="text-right">

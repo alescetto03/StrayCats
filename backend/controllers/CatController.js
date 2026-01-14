@@ -5,9 +5,8 @@ export class CatController {
         return Cat.findAll();
     }
 
-    static async saveCat(req){
-        let cat = Cat.build(req.body);
-        cat.author = req.username;
+    static async saveCat(data){
+        let cat = Cat.build(data);
         return cat.save();
     }
 

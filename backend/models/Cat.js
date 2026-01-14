@@ -8,7 +8,7 @@ export function createModel(database) {
     database.define('Cat', {
         catId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            autoIncrement: true,
             primaryKey: true
         },
         title: {
@@ -20,13 +20,16 @@ export function createModel(database) {
             allowNull: false,
         },
         latitude: {
-            type: DataTypes.DECIMAL(10, 8)
+            type: DataTypes.DECIMAL(10, 8),
+            allowNull: false,
         },
         longitude: {
-            type: DataTypes.DECIMAL(10, 8)
+            type: DataTypes.DECIMAL(10, 8),
+            allowNull: false,
         },
-        photo: {
-            type: DataTypes.STRING
+        image: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     })
 }

@@ -4,6 +4,7 @@ import { AuthService } from '../_services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-authentication-page',
@@ -13,6 +14,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './authentication-page.component.css'
 })
 export class AuthenticationPageComponent {
+  constructor(private location: Location) {}
+
   toastr = inject(ToastrService);
   router = inject(Router);
   restService = inject(ApiService);
@@ -42,7 +45,7 @@ export class AuthenticationPageComponent {
         },
         complete: () => {
           this.toastr.success(`Hai effettuato con successo il login!`,`Benvenuto ${this.loginForm.value.user}!`);
-          this.router.navigateByUrl("/");
+          this.router.navigate([""]);
           console.log(this.authService.getUser());
         }
       })

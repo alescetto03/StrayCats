@@ -1,0 +1,44 @@
+<button class="p-1 cursor-pointer" (click)="showSidebar()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7 11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21 17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z" fill="#ffffff"/>
+    </svg>
+</button>
+<div (click)="hideSidebar()" [style.display]="isSidebarVisible ? 'block' : 'none'" class="fixed top-0 left-0 w-full h-full z-1499"></div>
+<div id="sidebar" [style.right]="isSidebarVisible ? '0' : '-310px'" class="transition-all duration-300 fixed top-0 w-[300px] h-full bg-black/90 z-1500 shadow-[-10px_0_10px_rgba(0,0,0,0.5)]">
+    <div class="p-6 pb-0 flex justify-between">
+        <div class="flex items-center">
+            @if(this.authService.isUserAuthenticated()) {
+                <div class="mt-4">
+                    <div class="max-w-[175px] overflow mb-1">Benvenuto, alescetto03</div>
+                </div>
+            }
+        </div>
+        <button (click)="hideSidebar()" class="p-1 cursor-pointer h-[44px]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24" fill="none">
+                <path d="M19 5L4.99998 19M5.00001 5L19 19" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+    <ul class="flex flex-col items-start justify-start text-xl">
+        @if(!this.authService.isUserAuthenticated()){
+            <li class="w-full px-6 py-3">
+                <a routerLink="signin" class="relative after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0 after:bg-white/50 hover:after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+                    Accedi
+                </a>
+            </li>
+        } @else {
+            <li class="w-full px-6 py-3">
+                <a routerLink="logout" class="relative after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0 after:bg-white/50 hover:after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+                    Log Out
+                </a>
+            </li>
+        }
+        @if(this.authService.isUserAuthenticated()){
+            <li class="w-full px-6 py-3">
+                <a routerLink="cats" class="relative after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0 after:bg-white/50 hover:after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+                    Inserisci un randagio
+                </a>
+            </li>
+        }
+    </ul>
+</div>

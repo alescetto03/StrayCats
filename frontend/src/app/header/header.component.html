@@ -1,20 +1,27 @@
-<header class="z-50 py-12 flex flex-col items-center justify-center bg-[linear-gradient(to_top,rgba(255,255,255,0)_0%,rgba(0,0,0,0)_1%,rgba(0,0,0,0.04)_16%,rgba(0,0,0,0.23)_75%,rgba(0,0,0,0.33)_100%)]">
-    <div class="inline-flex justify-evenly relative items-center w-full text-white">
-      <a routerLink="cats">
-        Inserisci un randagio
-      </a>
-      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <a routerLink="">
-            <img src="logo.png" alt="logo" class="w-37">
+<header class="z-50 sm:py-12 p-6 sm:mb-16 mb-8 flex flex-col items-center justify-center bg-gradient-to-b from-black/85 via-black/75 via-65% via-black/60 via-85% to-black/25">
+    <div class="flex flex-wrap w-full text-white">
+      <div class="md:flex hidden items-center w-1/3 justify-end">
+        <a routerLink="cats">
+          Inserisci un randagio
         </a>
       </div>
-      @if(! this.authService.isUserAuthenticated()){
-        <a routerLink="signin">
-          Accedi
+      <div class="flex items-center md:mb-[-15px] md:w-1/3 w-1/2 md:justify-center justify-start sm:my-[-15px]">
+        <a routerLink="">
+            <img src="logo.png" alt="logo" class="md:w-40 w-30">
         </a>
-      } @else {
-        <span>Benvenuto, {{ this.authService.getUser() }} <a routerLink="logout" class="underline">logout</a></span>
-      }
+      </div>
+      <div class="md:flex hidden items-center w-1/3 justify-start">
+        @if(! this.authService.isUserAuthenticated()){
+          <a routerLink="signin">
+            Accedi
+          </a>
+        } @else {
+          <span>Benvenuto, {{ this.authService.getUser() }} <a routerLink="logout" class="underline">logout</a></span>
+        }
+      </div>
+      <div class="md:hidden flex items-center w-1/2 justify-end">
+        <app-sidebar></app-sidebar>
+      </div>
     </div>
 </header>
 <!--

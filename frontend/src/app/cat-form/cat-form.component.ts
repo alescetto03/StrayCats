@@ -11,6 +11,8 @@ import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { MarkdownModule } from 'ngx-markdown';
 import { ApiService } from '../_services/rest-api/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 const validExtensions = ['jpg', 'jpeg', 'webp'];
 
@@ -39,8 +41,8 @@ export class CatFormComponent {
   submitted: boolean = false;
   isExtensionInvalid : boolean = false;
   invalidData : boolean = false;
-
   selectedFile?: File;
+  router = inject(Router)
 
   constructor(private apiService: ApiService) {}
 
@@ -57,38 +59,50 @@ export class CatFormComponent {
     }
   }
 
-  handleSubmit() {
+  async handleSubmit() {
     this.submitted = true;
     const fileExtension = this.selectedFile?.name.toLowerCase().split('.').pop();
     if (fileExtension) {
-      this.isExtensionInvalid = validExtensions.includes(fileExtension)
+      this.isExtensionInvalid = !validExtensions.includes(fileExtension)
     }
     this.invalidData = this.catForm.invalid || 
                     !this.selectedFile || 
                     this.selectedFile.size > 5 * 1024 * 1024 || 
-                    this.isExtensionInvalid;                  
+                    this.isExtensionInvalid ||
+                    !this.latitude ||
+                    !this.longitude;                  
     if (this.invalidData) {
-      this.toastr.error("The data you provided is invalid!", "Oops! Invalid data!");
+      this.toastr.error("I dati forniti non sono validi!", "Oops! Dati invalidi!");
     } else {
-      console.log(this.latitude)
-      console.log(this.longitude)
-
-      const formData = new FormData();
-      formData.append('title', this.catForm.value.title!);
-      formData.append('description', this.catForm.value.description!);
-
-      // se hai anche latitude, longitude:
-      // formData.append('latitude', this.catForm.value.latitude!);
-      // formData.append('longitude', this.catForm.value.longitude!);
-
-      if (this.selectedFile) {
-        formData.append('image', this.selectedFile);
+      try {
+        /*
+         * Utilizzo firstValueFrom per convertire l'observable in una Promise, 
+         * altrimenti dovrei utilizzare degli Observable annidati (codice poco pulito)
+        */
+        const cat = await firstValueFrom(
+          this.apiService.saveCat({
+            title: this.catForm.value.title as string,
+            description: this.catForm.value.description as string,
+            latitude: this.latitude as number,
+            longitude: this.longitude as number
+          })
+        );
+        const formData = new FormData();
+        formData.append('image', this.selectedFile as File);
+        await firstValueFrom(
+          this.apiService.uploadCatImage(formData, cat.catId as bigint)
+        );
+        this.toastr.success(
+          "Il nuovo gatto è stato registrato con successo",
+          "Salvataggio completato!"
+        );
+        this.router.navigate([`cats/${cat.catId}`]);
+      } catch (error) {
+        this.toastr.error(
+          "Non è stato possibile completare l'operazione.",
+          "Errore!"
+        );
       }
-
-      //this.apiService.saveCat(formData).subscribe({
-      //  next: () => alert('Randagio salvato!'),
-      //  error: (err) => console.error(err),
-      //});
     }
   }
 

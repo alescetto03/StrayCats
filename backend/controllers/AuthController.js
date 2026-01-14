@@ -26,6 +26,7 @@ export class AuthController {
             password: req.body.pwd
         });
         let found = await User.findOne({ where: { username: user.username, password: user.password } });
+        console.log(found);
         return found !== null;
     }    
 

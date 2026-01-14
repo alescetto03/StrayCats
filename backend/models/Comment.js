@@ -5,15 +5,16 @@ import { DataTypes } from "sequelize";
  * @param {Sequelize} database 
  */
 export function createModel(database) {
-    database.define('Cat', {
-        catId: {
+    database.define('Comment', {
+        commentId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            references: {
-                model: Quiz,
-                key: 'id'
-            }
+            autoIncrement: true,
+            primaryKey: true
         },
+        text: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            notEmpty: true
+        }
     })
 }

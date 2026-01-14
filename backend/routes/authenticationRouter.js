@@ -18,7 +18,8 @@ authenticationRouter.post("/signup", (req, res, next) => {
 authenticationRouter.post("/login", async (req, res) => {
     let isAuthenticated = await AuthController.checkUserCredentials(req).then(result => result);
     if(isAuthenticated) {
-        res.json(AuthController.issueToken(req.body.usr));
+        let token = AuthController.issueToken(req.body.usr);
+        res.json(token);
     } else {
         res.status(401);
         res.json({error: "Invalid credentials. Try again."});

@@ -3,11 +3,20 @@
 
 html, body {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background:url('/background.jpg')no-repeat center center fixed; 
+  -webkit-background-size:cover;
+  -o-background-size:cover;
+  -moz-background-size:cover;
+  background-size:cover;
+}
 
 .toast-success {
   background-color: oklch(0.704 0.14 182.503);;
@@ -20,4 +29,93 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .toast-warning {
   background-color: #F89406;
+}
+
+/* ===== Scrollbar elegante nera ===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Sfondo del track (la "traccia" della scrollbar) */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Il thumb (pill interno) */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.8); /* nero semitrasparente */
+  border-radius: 9999px; /* arrotondato tipo pill */
+  border: 2px solid transparent; /* piccolo bordo interno */
+  background-clip: content-box;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover: effetto più visibile */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(4, 4, 4, 1);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(4, 4, 4, 0.8) transparent;
+}
+
+
+markdown h1, markdown h2, markdown h3, markdown h4, markdown h5, markdown h6 {
+  font-weight: bold;
+  margin-bottom: 1em;
+  display: block;
+}
+
+markdown h1 {
+    font-size: 2.5rem;
+}
+
+markdown h2 {
+    font-size: 2rem;
+}
+
+markdown h3 {
+    font-size: 1.75rem;
+}
+
+markdown h4 {
+    font-size: 1.5rem;
+}
+
+markdown h5 {
+    font-size: 1.25rem;
+}
+
+markdown h6 {
+    font-size: 1rem;
+}
+
+blockquote {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+    unicode-bidi: isolate;
+}
+
+ol {
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
 }

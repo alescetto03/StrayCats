@@ -10,6 +10,7 @@ export function enforceAuthentication(req, res, next) {
     }
     AuthController.isTokenValid(token, (err, decodedToken) => {
         if(err){
+            console.log()
             next({status: 401, message: "Unauthorized"});
         } else {
             req.username = decodedToken.user;

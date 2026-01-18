@@ -6,7 +6,7 @@
         <form [formGroup]="signupForm" (ngSubmit)="handleSignup()">
             <div class="text-center">
                 <div class="mb-4">
-                    <div class="flex w-full overflow-hidden rounded-md shadow-md mb-1">
+                    <div class="username-field flex w-full overflow-hidden rounded-md shadow-md mb-1">
                         <div class="flex items-center justify-center bg-stone-900 px-3">
                             <svg class="h-5 w-5 text-white" viewBox="0 0 16 16" fill="currentColor">
                                 <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"/>
@@ -30,7 +30,7 @@
                     }
                 </div>
                 <div class="mb-4">
-                    <div class="flex w-full overflow-hidden rounded-md shadow-md mb-1">
+                    <div class="password-field flex w-full overflow-hidden rounded-md shadow-md mb-1">
                         <div class="flex items-center justify-center bg-stone-900 px-3">
                             <svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 16 16">
                                 <path class="text-white" fill-rule="evenodd" clip-rule="evenodd" d="M16 5.5C16 8.53757 13.5376 11 10.5 11H7V13H5V15L4 16H0V12L5.16351 6.83649C5.0567 6.40863 5 5.96094 5 5.5C5 2.46243 7.46243 0 10.5 0C13.5376 0 16 2.46243 16 5.5ZM13 4C13 4.55228 12.5523 5 12 5C11.4477 5 11 4.55228 11 4C11 3.44772 11.4477 3 12 3C12.5523 3 13 3.44772 13 4Z"/>
@@ -46,7 +46,7 @@
                     </div>
                     @if(submitted && signupForm.controls.pass.errors){
                         @if(signupForm.controls.pass.errors['required']){
-                            <p class="text-left text-sm text-red-700">Inserisci una password</p>
+                            <p class="text-left text-sm text-red-700">Inserisci una password.</p>
                         }
                         @if(signupForm.controls.pass.errors['minlength']){
                             <p class="text-left text-sm text-red-700">La password deve contenere almeno 4 caratteri</p>
